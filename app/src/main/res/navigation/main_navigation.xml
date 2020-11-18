@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.simcom.sherlock.UI.StartFragment"
+        android:label="StartFragment">
+        <action
+            android:id="@+id/action_startFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_observeFragment"
+            app:destination="@id/observeFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.simcom.sherlock.UI.FriendFragment"
+        android:label="FriendFragment" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.simcom.sherlock.UI.ShareFragment"
+        android:label="ShareFragment" />
+    <fragment
+        android:id="@+id/observeFragment"
+        android:name="com.simcom.sherlock.UI.ObserveFragment"
+        android:label="ObserveFragment" />
+</navigation>

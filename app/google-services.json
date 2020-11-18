@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "838259784959",
+    "firebase_url": "https://sherlock-location.firebaseio.com",
+    "project_id": "sherlock-location",
+    "storage_bucket": "sherlock-location.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838259784959:android:7417a6d43521bb93d720ca",
+        "android_client_info": {
+          "package_name": "com.simcom.sherlock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838259784959-egk58a1s2hc1kmcj6mqfcsga0jbengdd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simcom.sherlock",
+            "certificate_hash": "f95aaf2725752f2922c72fb30f75c94dfa82dc16"
+          }
+        },
+        {
+          "client_id": "838259784959-92a8fvk72v3ltvj9d28gob8398suqtvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSHGr_qXok0vRkTR1qGbEkoDv5hgXHZAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838259784959-92a8fvk72v3ltvj9d28gob8398suqtvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
