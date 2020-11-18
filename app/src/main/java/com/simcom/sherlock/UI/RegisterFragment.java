@@ -13,11 +13,11 @@ import androidx.navigation.Navigation;
 
 import com.simcom.sherlock.R;
 
-public class LoginFragment extends Fragment {
+public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        View root = inflater.inflate(R.layout.fragment_observe, container, false);
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         return root;
     }
