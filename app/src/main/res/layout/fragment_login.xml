@@ -8,18 +8,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="Welcome to Sherlock!"
+        android:textSize="40sp"
+        android:text="Login"
         android:layout_margin="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select your nickname"
+        android:text="Email:"
         android:layout_marginHorizontal="10dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="10dp"
-        android:background="@drawable/edittext_background"/>
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edit_text_background_dark"
+        android:defaultFocusHighlightEnabled="false"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:layout_marginHorizontal="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edit_text_background_dark"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Log in"
+        android:background="@drawable/button_background"/>
+
+
 
 </LinearLayout>

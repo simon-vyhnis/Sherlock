@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Sherlock</string>
     <string name="somebodys_location">Somebody\'s location</string>
+    <string name="register_title">Register to Sherlock</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="go_login">Have acocunt? Log in</string>
 </resources>

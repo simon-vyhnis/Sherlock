@@ -35,4 +35,8 @@ public class Repository {
             return false;
         }
     }
+
+    public boolean isLoggedIn(){
+        return auth.getCurrentUser() != null;
+    }
 }
