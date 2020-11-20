@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment {
             String passwordText = password.getText().toString();
                 if(emailText.contains("@")){
                     if(password.toString().length()>5){
-                        if(viewModel.registerUser(emailText, passwordText)){
+                        if(viewModel.login(emailText, passwordText)){
                             Toast.makeText(getContext(), "Login successful",Toast.LENGTH_SHORT).show();
                             navController.navigate(R.id.action_loginFragment_to_startFragment);
                         }else{

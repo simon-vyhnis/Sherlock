@@ -1,6 +1,7 @@
 package com.simcom.sherlock.model;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class Repository {
     private static Repository instance = null;
@@ -16,9 +17,13 @@ public class Repository {
 
     }
 
-    public boolean registerUser(String email, String password){
+    public boolean registerUser(String name, String email, String password){
         try {
             auth.createUserWithEmailAndPassword(email, password);
+            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build();
+            auth.getCurrentUser().updateProfile(request);
             return true;
         }catch (Exception e){
             e.printStackTrace();

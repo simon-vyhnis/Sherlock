@@ -19,8 +19,8 @@ public class LoginViewModel extends AndroidViewModel {
         return repository.isLoggedIn();
     }
 
-    public boolean registerUser(String email, String password){
-        return repository.registerUser(email, password);
+    public boolean registerUser(String name, String email, String password){
+        return repository.registerUser(name, email, password);
     }
 
     public boolean login(String email, String password){

@@ -40,7 +40,7 @@ public class RegisterFragment extends Fragment {
             if(!nameText.isEmpty()){
                 if(emailText.contains("@")){
                     if(password.toString().length()>5){
-                        if(viewModel.registerUser(emailText, passwordText)){
+                        if(viewModel.registerUser(nameText, emailText, passwordText)){
                             Toast.makeText(getContext(), "Registration successful",Toast.LENGTH_SHORT).show();
                             navController.navigate(R.id.action_registerFragment_to_startFragment);
                         }else{
