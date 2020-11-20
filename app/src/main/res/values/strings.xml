@@ -6,5 +6,12 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
-    <string name="go_login">Have acocunt? Log in</string>
+    <string name="go_login"><u>HAVE ACCOUNT? LOG IN</u></string>
+    <string name="login">Log in</string>
+    <string name="login_title">Login to Sherlock</string>
+    <string name="go_register"><u>DON\'T HAVE ACCOUNT? REGISTER</u></string>
+    <string name="location_sharing">Location sharing</string>
+    <string name="share_location">Share location</string>
+    <string name="observe_location">Observe location</string>
+    <string name="add_friend">Add Friend</string>
 </resources>

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,21 +40,23 @@ public class RegisterFragment extends Fragment {
             if(!nameText.isEmpty()){
                 if(emailText.contains("@")){
                     if(password.toString().length()>5){
-                        viewModel.registerUser(emailText, passwordText);
+                        if(viewModel.registerUser(emailText, passwordText)){
+                            Toast.makeText(getContext(), "Registration successful",Toast.LENGTH_SHORT).show();
+                            navController.navigate(R.id.action_registerFragment_to_startFragment);
+                        }else{
+                            Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_LONG).show();
+                        }
                     }else{
-                        System.out.println(getActivity().getTheme().getDrawable());
                         password.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.edit_text_background_error));
                     }
                 }else{
                     email.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.edit_text_background_error));
-
                 }
             }else{
                 name.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.edit_text_background_error));
-
             }
-
         });
+        root.findViewById(R.id.button_go_login).setOnClickListener(view -> navController.navigate(R.id.action_registerFragment_to_loginFragment));
         return root;
     }
 }
