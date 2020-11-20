@@ -1,9 +1,11 @@
 package com.simcom.sherlock.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.MapView;
 import com.simcom.sherlock.R;
+import com.simcom.sherlock.services.ShareLocationService;
 
 public class ShareFragment extends Fragment {
     private MapView mapView;
@@ -23,8 +26,11 @@ public class ShareFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_share, container, false);
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         mapView = root.findViewById(R.id.map);
-        root.findViewById(R.id.button_share).setOnClickListener(view -> {
-
+        Button button = root.findViewById(R.id.button_share);
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(requireContext(), ShareLocationService.class);
+            intent.putExtra("action",ShareLocationService.ACTION_START);
+            requireContext().startForegroundService(intent);
         });
         return root;
     }

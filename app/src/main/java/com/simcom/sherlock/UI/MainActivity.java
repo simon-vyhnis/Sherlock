@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         if(getIntent()!=null){
             navigateToShareFragmentIfNeeded(getIntent());
         }
-        if(viewModel.isLoggedIn()){
-               navController.navigate(R.id.action_registerFragment_to_startFragment);
+        if(viewModel.isLoggedIn() && navController.getCurrentDestination().getId() == R.id.registerFragment){
+            navController.navigate(R.id.action_registerFragment_to_startFragment);
         }
     }
 
