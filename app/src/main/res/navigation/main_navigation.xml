@@ -59,4 +59,8 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <action android:id="@+id/action_global_shareFragment"
+        app:destination="@id/shareFragment"
+        app:launchSingleTop="true"/>
 </navigation>

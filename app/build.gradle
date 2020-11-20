@@ -48,4 +48,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
+
+    implementation 'androidx.lifecycle:lifecycle-service:2.2.0'
 }
