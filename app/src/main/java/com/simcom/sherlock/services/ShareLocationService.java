@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 
 import com.simcom.sherlock.R;
 import com.simcom.sherlock.UI.MainActivity;
+import com.simcom.sherlock.broadcastReceivers.StopSharingBroadcastReceiver;
 
 public class ShareLocationService extends LifecycleService {
     public static final int NOTIFICATION_ID = 1;
@@ -61,18 +62,11 @@ public class ShareLocationService extends LifecycleService {
     }
 
     private PendingIntent createStopIntent() {
-        return PendingIntent.getBroadcast(this, 0, new Intent(this, StopSharingBroadcastReceiver.class),0 );
+        return PendingIntent.getBroadcast(this, 0, new Intent(this, StopSharingBroadcastReceiver.class), 0);
     }
 
     private void createNotificationChannel(NotificationManager manager) {
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANEL_NAME, NotificationManager.IMPORTANCE_LOW);
         manager.createNotificationChannel(channel);
-    }
-    class StopSharingBroadcastReceiver extends BroadcastReceiver{
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context,"Stopping sharing",Toast.LENGTH_SHORT).show();
-        }
     }
 }
