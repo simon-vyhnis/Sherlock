@@ -12,6 +12,7 @@
     <string name="go_register"><u>DON\'T HAVE ACCOUNT? REGISTER</u></string>
     <string name="location_sharing">Location sharing</string>
     <string name="share_location">Share location</string>
+    <string name="stop_sharing">Stop sharing</string>
     <string name="observe_location">Observe location</string>
     <string name="add_friend">Add Friend</string>
 </resources>

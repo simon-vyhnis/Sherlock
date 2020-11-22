@@ -17,6 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.simcom.sherlock.R;
 
 public class RegisterFragment extends Fragment {
@@ -40,12 +43,15 @@ public class RegisterFragment extends Fragment {
             if(!nameText.isEmpty()){
                 if(emailText.contains("@")){
                     if(password.toString().length()>5){
-                        if(viewModel.registerUser(nameText, emailText, passwordText)){
-                            Toast.makeText(getContext(), "Registration successful",Toast.LENGTH_SHORT).show();
-                            navController.navigate(R.id.action_registerFragment_to_startFragment);
-                        }else{
-                            Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_LONG).show();
-                        }
+                        viewModel.registerUser(nameText, emailText, passwordText).addOnCompleteListener(task -> {
+                            if(task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Registration successful", Toast.LENGTH_SHORT).show();
+                                navController.navigate(R.id.action_registerFragment_to_startFragment);
+                            }else {
+                                Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_LONG).show();
+                                task.getException().printStackTrace();
+                            }
+                        });
                     }else{
                         password.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.edit_text_background_error));
                     }

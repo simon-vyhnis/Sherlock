@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.simcom.sherlock.model.Repository;
 
 public class LoginViewModel extends AndroidViewModel {
@@ -19,7 +21,7 @@ public class LoginViewModel extends AndroidViewModel {
         return repository.isLoggedIn();
     }
 
-    public boolean registerUser(String name, String email, String password){
+    public Task<AuthResult> registerUser(String name, String email, String password){
         return repository.registerUser(name, email, password);
     }
 
