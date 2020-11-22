@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.simcom.sherlock.UI.StartFragment"
+        android:name="com.simcom.sherlock.UI.fragments.StartFragment"
         android:label="StartFragment">
         <action
             android:id="@+id/action_startFragment_to_shareFragment"
@@ -19,15 +19,15 @@
     </fragment>
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.simcom.sherlock.UI.FriendFragment"
+        android:name="com.simcom.sherlock.UI.fragments.FriendFragment"
         android:label="FriendFragment" />
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.simcom.sherlock.UI.ShareFragment"
+        android:name="com.simcom.sherlock.UI.fragments.ShareFragment"
         android:label="ShareFragment" />
     <fragment
         android:id="@+id/observeFragment"
-        android:name="com.simcom.sherlock.UI.ObserveFragment"
+        android:name="com.simcom.sherlock.UI.fragments.ObserveFragment"
         android:label="ObserveFragment" >
         <action
             android:id="@+id/action_observeFragment_to_locationFragment"
@@ -35,11 +35,11 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.simcom.sherlock.UI.LocationFragment"
+        android:name="com.simcom.sherlock.UI.fragments.LocationFragment"
         android:label="LocationFragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.simcom.sherlock.UI.LoginFragment"
+        android:name="com.simcom.sherlock.UI.fragments.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_startFragment"
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.simcom.sherlock.UI.RegisterFragment"
+        android:name="com.simcom.sherlock.UI.fragments.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_startFragment"

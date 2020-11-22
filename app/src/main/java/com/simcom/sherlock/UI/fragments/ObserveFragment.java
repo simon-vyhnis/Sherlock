@@ -1,4 +1,4 @@
-package com.simcom.sherlock.UI;
+package com.simcom.sherlock.UI.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +13,11 @@ import androidx.navigation.Navigation;
 
 import com.simcom.sherlock.R;
 
-public class FriendFragment extends Fragment {
+public class ObserveFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_friend, container, false);
+        View root = inflater.inflate(R.layout.fragment_observe, container, false);
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         return root;
     }

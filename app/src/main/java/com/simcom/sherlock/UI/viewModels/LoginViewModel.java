@@ -1,4 +1,4 @@
-package com.simcom.sherlock.UI;
+package com.simcom.sherlock.UI.viewModels;
 
 import android.app.Application;
 

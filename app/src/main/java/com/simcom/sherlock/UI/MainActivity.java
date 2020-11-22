@@ -9,8 +9,8 @@ import androidx.navigation.Navigation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.simcom.sherlock.R;
+import com.simcom.sherlock.UI.viewModels.LoginViewModel;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ACTION_NAVIGATE_TO_SHARE_FRAGMENT = 1;

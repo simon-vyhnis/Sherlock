@@ -1,4 +1,4 @@
-package com.simcom.sherlock.UI;
+package com.simcom.sherlock.UI.fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.maps.MapView;
 import com.simcom.sherlock.LocationPermissions;
 import com.simcom.sherlock.R;
+import com.simcom.sherlock.model.Repository;
 import com.simcom.sherlock.services.ShareLocationService;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class ShareFragment extends Fragment implements EasyPermissions.Permissio
         button = root.findViewById(R.id.button_share);
         button.setOnClickListener(view -> {
             if(ShareLocationService.isRunning().getValue() == null || !ShareLocationService.isRunning().getValue()){
+
                 Intent intent = new Intent(requireContext(), ShareLocationService.class);
                 intent.putExtra("action",ShareLocationService.ACTION_START);
                 requireContext().startForegroundService(intent);

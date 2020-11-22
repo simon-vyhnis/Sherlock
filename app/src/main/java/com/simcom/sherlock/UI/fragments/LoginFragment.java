@@ -1,4 +1,4 @@
-package com.simcom.sherlock.UI;
+package com.simcom.sherlock.UI.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.simcom.sherlock.R;
+import com.simcom.sherlock.UI.viewModels.LoginViewModel;
 
 public class LoginFragment extends Fragment {
     @Nullable
