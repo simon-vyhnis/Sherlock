@@ -59,7 +59,6 @@ public class Repository {
     public Task<Void> startSharing(){
         if(isLoggedIn()){
             DocumentReference userRef = db.collection("users").document(auth.getCurrentUser().getUid());
-            boolean result;
             return userRef.update("currentlySharing", true);
         }
         return null;
@@ -67,5 +66,11 @@ public class Repository {
     public void writeLocations(){
 
 
+    }
+    public void stopSharing(){
+        if(isLoggedIn()){
+            DocumentReference userRef = db.collection("users").document(auth.getCurrentUser().getUid());
+            userRef.update("currentlySharing", false);
+        }
     }
 }

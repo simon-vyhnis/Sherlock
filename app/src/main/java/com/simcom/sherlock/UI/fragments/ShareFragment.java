@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class ShareFragment extends Fragment implements EasyPermissions.PermissionCallbacks{
     private MapView mapView;
     private Button button;
+    private Repository repository;
 
     @Nullable
     @Override
@@ -39,15 +41,22 @@ public class ShareFragment extends Fragment implements EasyPermissions.Permissio
         mapView = root.findViewById(R.id.map);
         button = root.findViewById(R.id.button_share);
         button.setOnClickListener(view -> {
+            repository = Repository.getInstance();
             if(ShareLocationService.isRunning().getValue() == null || !ShareLocationService.isRunning().getValue()){
-
-                Intent intent = new Intent(requireContext(), ShareLocationService.class);
-                intent.putExtra("action",ShareLocationService.ACTION_START);
-                requireContext().startForegroundService(intent);
+                repository.startSharing().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(requireContext(), ShareLocationService.class);
+                        intent.putExtra("action",ShareLocationService.ACTION_START);
+                        requireContext().startForegroundService(intent);
+                    }else{
+                        Toast.makeText(getContext(),"Something went wrong, check your internet connection", Toast.LENGTH_LONG).show();
+                    }
+                });
             }else{
                 Intent intent = new Intent(requireContext(), ShareLocationService.class);
                 intent.putExtra("action",ShareLocationService.ACTION_STOP);
                 requireContext().startForegroundService(intent);
+                repository.stopSharing();
             }
         });
         return root;
