@@ -14,12 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.MapView;
 import com.simcom.sherlock.LocationPermissions;
 import com.simcom.sherlock.R;
+import com.simcom.sherlock.UI.viewModels.LoginViewModel;
+import com.simcom.sherlock.UI.viewModels.ShareViewModel;
 import com.simcom.sherlock.model.Repository;
 import com.simcom.sherlock.services.ShareLocationService;
 
@@ -31,19 +34,18 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class ShareFragment extends Fragment implements EasyPermissions.PermissionCallbacks{
     private MapView mapView;
     private Button button;
-    private Repository repository;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_share, container, false);
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        ShareViewModel viewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(ShareViewModel.class);
         mapView = root.findViewById(R.id.map);
         button = root.findViewById(R.id.button_share);
         button.setOnClickListener(view -> {
-            repository = Repository.getInstance();
             if(ShareLocationService.isRunning().getValue() == null || !ShareLocationService.isRunning().getValue()){
-                repository.startSharing().addOnCompleteListener(task -> {
+                viewModel.startSharing().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         Intent intent = new Intent(requireContext(), ShareLocationService.class);
                         intent.putExtra("action",ShareLocationService.ACTION_START);
@@ -56,7 +58,7 @@ public class ShareFragment extends Fragment implements EasyPermissions.Permissio
                 Intent intent = new Intent(requireContext(), ShareLocationService.class);
                 intent.putExtra("action",ShareLocationService.ACTION_STOP);
                 requireContext().startForegroundService(intent);
-                repository.stopSharing();
+                viewModel.stopSharing();
             }
         });
         return root;

@@ -15,4 +15,6 @@
     <string name="stop_sharing">Stop sharing</string>
     <string name="observe_location">Observe location</string>
     <string name="add_friend">Add Friend</string>
+    <string name="scan">Scan</string>
+    <string name="qr_code">QR code</string>
 </resources>

@@ -73,4 +73,8 @@ public class Repository {
             userRef.update("currentlySharing", false);
         }
     }
+
+    public String getUid(){
+        return auth.getCurrentUser().getUid();
+    }
 }
