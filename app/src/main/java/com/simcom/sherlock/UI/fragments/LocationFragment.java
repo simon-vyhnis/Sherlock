@@ -81,4 +81,8 @@ public class LocationFragment extends Fragment {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
+    private void drawLine(){
+
+
+    }
 }

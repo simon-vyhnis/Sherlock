@@ -3,7 +3,10 @@ package com.simcom.sherlock.UI.viewModels;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.Task;
+import com.simcom.sherlock.model.Friend;
 import com.simcom.sherlock.model.Repository;
+
+import java.util.List;
 
 public class ShareViewModel extends ViewModel {
     public Repository repository;
@@ -15,5 +18,8 @@ public class ShareViewModel extends ViewModel {
     }
     public void stopSharing(){
         repository.startSharing();
+    }
+    public Task<List<Friend>> getActiveFriends(){
+        return null;
     }
 }
