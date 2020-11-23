@@ -28,6 +28,8 @@ import com.simcom.sherlock.UI.viewModels.FriendsViewModel;
 import com.simcom.sherlock.UI.viewModels.LoginViewModel;
 
 public class FriendFragment extends Fragment {
+
+    private FriendsViewModel viewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class FriendFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FriendsViewModel viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(FriendsViewModel.class);
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(FriendsViewModel.class);
         ImageView qrImage = view.findViewById(R.id.qr_code);
         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
         try {
@@ -73,7 +75,13 @@ public class FriendFragment extends Fragment {
             if(result.getContents() == null) {
                 Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                viewModel.addFriend(result.getContents()).observe(getActivity(),bool -> {
+                    if(bool){
+                        Toast.makeText(getContext(), "Friend added", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -1,6 +1,8 @@
 package com.simcom.sherlock.model;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -9,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Repository {
@@ -76,5 +79,26 @@ public class Repository {
 
     public String getUid(){
         return auth.getCurrentUser().getUid();
+    }
+    public LiveData<Boolean> addFriend(String uid){
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        DocumentReference userRef = db.collection("users").document(auth.getCurrentUser().getUid());
+        DocumentReference user2Ref = db.collection("users").document(uid);
+        user2Ref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    userRef.update("friends", FieldValue.arrayUnion(uid));
+                    user2Ref.update("friends", FieldValue.arrayUnion(uid)).addOnCompleteListener(task1 -> {
+                        result.postValue(task1.isSuccessful());
+                    });
+                }else {
+                    result.postValue(false);
+                }
+            } else {
+                result.postValue(false);
+            }
+
+        });
+        return result;
     }
 }
