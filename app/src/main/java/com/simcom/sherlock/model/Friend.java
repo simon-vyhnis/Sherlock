@@ -4,9 +4,9 @@ public class Friend {
     private String displayName;
     private String uid;
 
-    public Friend(String displayName, String uid) {
-        this.displayName = displayName;
+    public Friend(String uid, String displayName) {
         this.uid = uid;
+        this.displayName = displayName;
     }
 
     public String getDisplayName() {
@@ -23,5 +23,8 @@ public class Friend {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public Friend() {
     }
 }

@@ -1,5 +1,7 @@
 package com.simcom.sherlock.model;
 
+import android.hardware.SensorManager;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,6 +15,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.List;
 
 public class Repository {
     private static Repository instance = null;
@@ -33,14 +38,8 @@ public class Repository {
     public Task<AuthResult> registerUser(String name, String email, String password){
             return auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
               if(task.isSuccessful()){
-                  UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
-                          .setDisplayName(name)
-                          .build();
-                  if (auth.getCurrentUser() != null) {
-                      auth.getCurrentUser().updateProfile(request);
-                  }
                   DocumentReference userRef = db.collection("users").document(auth.getCurrentUser().getUid());
-                  userRef.set(new User(false));
+                  userRef.set(new User(false, name));
               }
             });
     }
@@ -88,7 +87,7 @@ public class Repository {
             if (task.isSuccessful()) {
                 if (task.getResult().exists()) {
                     userRef.update("friends", FieldValue.arrayUnion(uid));
-                    user2Ref.update("friends", FieldValue.arrayUnion(uid)).addOnCompleteListener(task1 -> {
+                    user2Ref.update("friends", FieldValue.arrayUnion(auth.getCurrentUser().getUid())).addOnCompleteListener(task1 -> {
                         result.postValue(task1.isSuccessful());
                     });
                 }else {
@@ -100,5 +99,11 @@ public class Repository {
 
         });
         return result;
+    }
+    public Query getActiveFriends(){
+        System.out.println(auth.getCurrentUser().getUid());
+        return db.collection("users")
+                .whereArrayContains("friends",auth.getCurrentUser().getUid())
+                .whereEqualTo("currentlySharing", false);
     }
 }
