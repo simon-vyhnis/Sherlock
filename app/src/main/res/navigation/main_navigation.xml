@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
     app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/startFragment"
         android:name="com.simcom.sherlock.UI.fragments.StartFragment"
-        android:label="StartFragment">
+        android:label="StartFragment"
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_shareFragment"
             app:destination="@id/shareFragment" />
@@ -20,15 +23,18 @@
     <fragment
         android:id="@+id/friendFragment"
         android:name="com.simcom.sherlock.UI.fragments.FriendFragment"
-        android:label="FriendFragment" />
+        android:label="@string/friend_title"
+        tools:layout="@layout/fragment_friend"/>
     <fragment
         android:id="@+id/shareFragment"
         android:name="com.simcom.sherlock.UI.fragments.ShareFragment"
-        android:label="ShareFragment" />
+        android:label="ShareFragment"
+        tools:layout="@layout/fragment_share"/>
     <fragment
         android:id="@+id/observeFragment"
         android:name="com.simcom.sherlock.UI.fragments.ObserveFragment"
-        android:label="ObserveFragment" >
+        android:label="ObserveFragment"
+        tools:layout="@layout/fragment_observe">
         <action
             android:id="@+id/action_observeFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
@@ -36,11 +42,13 @@
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.simcom.sherlock.UI.fragments.LocationFragment"
-        android:label="LocationFragment" />
+        android:label="LocationFragment"
+        tools:layout="@layout/fragment_location"/>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.simcom.sherlock.UI.fragments.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_startFragment"
             app:destination="@id/startFragment" />
@@ -51,10 +59,13 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.simcom.sherlock.UI.fragments.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

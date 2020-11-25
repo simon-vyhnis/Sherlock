@@ -17,4 +17,7 @@
     <string name="add_friend">Add Friend</string>
     <string name="scan">Scan</string>
     <string name="qr_code">QR code</string>
+    <string name="observe_title">Active Friends</string>
+    <string name="friend_title">Add Friend</string>
+    <string name="share_title">Share location</string>
 </resources>
