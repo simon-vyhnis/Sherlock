@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,9 +66,8 @@ public class Repository {
         }
         return null;
     }
-    public void writeLocations(){
-
-
+    public void writeLocations(LatLng location) {
+        db.collection("users").document(auth.getCurrentUser().getUid()).update("location", location);
     }
     public void stopSharing(){
         if(isLoggedIn()){
@@ -104,6 +104,9 @@ public class Repository {
         System.out.println(auth.getCurrentUser().getUid());
         return db.collection("users")
                 .whereArrayContains("friends",auth.getCurrentUser().getUid())
-                .whereEqualTo("currentlySharing", false);
+                .whereEqualTo("currentlySharing", true);
+    }
+    public DocumentReference getFriendsLocations(String uid){
+        return db.collection("users").document(uid);
     }
 }

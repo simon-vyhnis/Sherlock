@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.simcom.sherlock.R;
 import com.simcom.sherlock.UI.adapters.ObserveViewAdapter;
@@ -28,13 +30,15 @@ import java.util.List;
 
 public class ObserveFragment extends Fragment {
     private ObserveViewAdapter adapter;
+    private ShareViewModel viewModel;
+    private NavController navController;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_observe, container, false);
-        final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        adapter = new ObserveViewAdapter();
+        adapter = new ObserveViewAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         return root;
@@ -43,17 +47,24 @@ public class ObserveFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ShareViewModel viewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(ShareViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(ShareViewModel.class);
         viewModel.getActiveFriends().addSnapshotListener(requireActivity(), (value, error) -> {
            if(error!=null){
                error.printStackTrace();
                Toast.makeText(getContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
            }else {
                System.out.println(value.size());
-               List<Friend> list = value.toObjects(Friend.class);
+               List<Friend>list = new ArrayList<>();
+               for(QueryDocumentSnapshot document:value){
+                   list.add(new Friend(document.getId(),document.getString("displayName")));
+               }
                System.out.println(list.size());
                adapter.setFriends(list);
            }
         });
+    }
+    public void openMap(Friend friend){
+        viewModel.setFriendUid(friend);
+        navController.navigate(R.id.action_observeFragment_to_locationFragment);
     }
 }

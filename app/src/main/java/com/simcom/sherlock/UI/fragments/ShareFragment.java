@@ -18,7 +18,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.simcom.sherlock.LocationPermissions;
 import com.simcom.sherlock.R;
 import com.simcom.sherlock.UI.viewModels.LoginViewModel;
@@ -33,14 +38,15 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class ShareFragment extends Fragment implements EasyPermissions.PermissionCallbacks{
     private MapView mapView;
+    private GoogleMap map;
     private Button button;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_share, container, false);
-        final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        ShareViewModel viewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(ShareViewModel.class);
+        final NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        ShareViewModel viewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(ShareViewModel.class);
         mapView = root.findViewById(R.id.map);
         button = root.findViewById(R.id.button_share);
         button.setOnClickListener(view -> {
@@ -74,6 +80,8 @@ public class ShareFragment extends Fragment implements EasyPermissions.Permissio
                 button.setText(R.string.share_location);
             }
         });
+        mapView.getMapAsync(googleMap -> map = googleMap);
+        ShareLocationService.getLocations().observe(requireActivity(), this::drawLocation);
         requestPermissions();
     }
 
@@ -163,5 +171,15 @@ public class ShareFragment extends Fragment implements EasyPermissions.Permissio
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+    private void drawLocation(LatLng location){
+        System.out.println("Drawing...");
+        map.clear();
+        MarkerOptions options = new MarkerOptions()
+                .position(location)
+                .title("Location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+        map.addMarker(options);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location,15));
     }
 }

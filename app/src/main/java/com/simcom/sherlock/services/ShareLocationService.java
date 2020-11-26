@@ -24,6 +24,7 @@ import com.simcom.sherlock.LocationPermissions;
 import com.simcom.sherlock.R;
 import com.simcom.sherlock.UI.MainActivity;
 import com.simcom.sherlock.broadcastReceivers.StopSharingBroadcastReceiver;
+import com.simcom.sherlock.model.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,19 +38,20 @@ public class ShareLocationService extends LifecycleService {
     public static final int ACTION_STOP = 2;
 
     private List<LatLng> locations;
+    private long lastUpdateTime;
 
-    private static MutableLiveData<Boolean> running = new MutableLiveData<>();
-    private static MutableLiveData<List<LatLng>> locationsLiveData = new MutableLiveData<>();
+    private static final MutableLiveData<Boolean> running = new MutableLiveData<>();
+    private static final MutableLiveData<LatLng> locationsLiveData = new MutableLiveData<>();
 
     public static LiveData<Boolean> isRunning() {
         return running;
     }
 
-    public static LiveData<List<LatLng>> getLocations() {
+    public static LiveData<LatLng> getLocations() {
         return locationsLiveData;
     }
 
-    private LocationCallback callback = new LocationCallback() {
+    private final LocationCallback callback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
@@ -75,8 +77,11 @@ public class ShareLocationService extends LifecycleService {
                 running.postValue(true);
                 startSharing();
             } else if (intent.getIntExtra("action", 0) == ACTION_STOP) {
+                Log.d("LOCATION_SERVICE","Stopping service...");
                 running.postValue(false);
+                stopForeground(true);
                 stopSelf();
+                onDestroy();
             }
         }
         return super.onStartCommand(intent, flags, startId);
@@ -90,7 +95,7 @@ public class ShareLocationService extends LifecycleService {
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.ic_baseline_location_on_24)
                 .setContentTitle("Sharing location")
-                .setContentText("You are sharing your location via Sherlock since " + System.currentTimeMillis())
+                .setContentText("You are sharing your location")
                 .setContentIntent(createMainActivityPendingIntent())
                 .addAction(R.drawable.ic_baseline_location_on_24, "STOP", createStopIntent());
 
@@ -119,8 +124,13 @@ public class ShareLocationService extends LifecycleService {
         if (location != null) {
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             locations.add(pos);
-            locationsLiveData.postValue(locations);
+            locationsLiveData.postValue(pos);
             Log.d("LOCATION_SERVICE","Latitude:"+ pos.latitude + "Longitude: "+ pos.longitude);
+            if(System.currentTimeMillis()>lastUpdateTime+30000){
+                Log.d("LOCATION_SERVICE", "Pushing data...");
+                Repository.getInstance().writeLocations(locations.get(locations.size()-1));
+                lastUpdateTime = System.currentTimeMillis();
+            }
         }
     }
 

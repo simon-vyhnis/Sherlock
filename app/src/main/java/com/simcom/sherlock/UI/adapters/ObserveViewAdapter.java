@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simcom.sherlock.R;
 import com.simcom.sherlock.model.Friend;
-import com.simcom.sherlock.model.User;
+import com.simcom.sherlock.UI.fragments.ObserveFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,14 @@ import java.util.List;
 public class ObserveViewAdapter extends RecyclerView.Adapter<ObserveViewAdapter.ViewHolder> {
 
     private List<Friend> friends = new ArrayList<>();
+    private ObserveFragment fragment;
 
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
         notifyDataSetChanged();
+    }
+    public ObserveViewAdapter(ObserveFragment fragment){
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -38,7 +42,7 @@ public class ObserveViewAdapter extends RecyclerView.Adapter<ObserveViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getDisplayName());
         holder.card.setOnClickListener(view -> {
-
+            fragment.openMap(friends.get(position));
         });
     }
 
